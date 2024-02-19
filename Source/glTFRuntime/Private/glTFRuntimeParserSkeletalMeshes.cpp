@@ -3745,7 +3745,11 @@ const FBox& FglTFRuntimeSkeletalMeshContext::GetBoneBox(const int32 BoneIndex)
 
 		if (BestBoneIndex == BoneIndex)
 		{
+#if ENGINE_MAJOR_VERSION >= 5
 			Box += FVector(SkeletalMesh->GetRefBasesInvMatrix()[BoneIndex].TransformPosition(LOD0.StaticVertexBuffers.PositionVertexBuffer.VertexPosition(VertexIndex)));
+#else
+			Box += FVector(SkeletalMesh->RefBasesInvMatrix[BoneIndex].TransformPosition(LOD0.StaticVertexBuffers.PositionVertexBuffer.VertexPosition(VertexIndex)));
+#endif
 		}
 	}
 
